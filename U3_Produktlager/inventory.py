@@ -1,6 +1,7 @@
 import csv
 import os
 import locale
+import time
 
 class Product:
     def __init__(self, id, name, desc, price, quantity) -> None:
@@ -27,6 +28,7 @@ class Product:
 
     def __str__(self):
         return f"Product: {self.name} \t {self.desc} \t {locale.currency(self.price, grouping=True)}"
+
     
 
 
@@ -60,8 +62,10 @@ while True:
         new_product = Product(None, None, None, None, None)
         new_product.add_item(products, filename)
     elif User_Choice_Input == 2:
-        #Har inte hunnit lägga till remove!
-        pass
+        print(get_products(products))
+        user_remove = int(input(f"What product would you like to remove?\n1 - {len(products) + 1}\n"))
+        products.remove(temp_product)
+        return f"tog bort{temp_product["name"]}"
 
     elif User_Choice_Input == 3:
         while True:
