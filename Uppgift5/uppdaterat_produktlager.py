@@ -32,7 +32,15 @@ class Inventory:
         with open(self.filename, 'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([product.id, product.name, product.desc, product.price, product.quantity])
-
+    
+    def save_data(self) -> None:
+        # write products to the CSV file
+        with open(self.filename, 'w', newline='') as csvfile:
+            fieldnames = ["id","name","desc","price","quantity"]
+            writer = csv.writer(csvfile)
+            writer.writerow(fieldnames)
+            for product in self.products:
+                writer.writerow([product.id, product.name, product.desc, product.price, product.quantity])
 
     def load_data(self) -> None:
         self.products = []
@@ -56,17 +64,11 @@ class Inventory:
                 removed_product = self.products[id]
                 del self.products[id]
                 break
-        
-        # write products to the CSV file
-        with open(self.filename, 'w', newline='') as csvfile:
-            fieldnames = ["id","name","desc","price","quantity"]
-            # writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer = csv.writer(csvfile)
-            writer.writerow(fieldnames)
-            for product in self.products:
-                writer.writerow([product.id, product.name, product.desc, product.price, product.quantity])
+        self.save_data()
         return removed_product
 
+def print_products():
+    print("\n".join([str(product.id) + ' ' + str(product) for product in inventory.products]))
 
 
 #User input for new product
@@ -77,12 +79,31 @@ def new_product_dialog() -> Product:
     quantity = int(input("Product_Quantity: "))
     return Product(None, name, desc, price, quantity)
 
-
+#User input to remove product
 def remove_product_dialog() -> Product:
-    print("\n".join([str(product.id) + ' ' + str(product) for product in inventory.products]))
-    user_remove = int(input(f"What product would you like to remove?\n"))
+    print_products()
+    user_remove = int(input(f"What product would you like to remove? (Enter id)\n"))
     removed_product = inventory.remove(user_remove)
+    print(f"Removed {removed_product.name}")
+    time.sleep(4)
     return removed_product
+    
+
+#User input to change product
+def change_product_dialog() -> Product:
+    print_products()
+    user_change_product= input("What product would you like to change? (q to quit)")
+    for product in inventory.products:
+        if user_change_product == product.name:
+            print(f"currently editing {product.name}")
+            product.name = input(f"Enter new name [{product.name}]:") or product.name
+            product.desc = input(f"Enter new description [{product.desc}]:") or product.desc
+            product.price = float(input(f"Enter new price [{product.price}]:")) or product.price
+            product.quantity = int(input(f"Enter new quantity [{product.quantity}]:")) or product.quantity
+            inventory.save_data()
+            return product
+    print(f"Product '{user_change_product}' does not exist")
+    return None        
 
 locale.setlocale(locale.LC_ALL, 'sv_SE.UTF-8')
 
@@ -104,18 +125,10 @@ while True:
         print(f"tog bort{removed_product.name}")
 
     elif User_Choice_Input == 3:
-        while True:
-            specific_user_choice_input_3 = input("1. Change_Name\n2. Change_Description\n3. Change_Price\nChoice: ")
-            if specific_user_choice_input_3 == "1":
-                user_choice_change_product_input1 = input("Change_Product: ")
-                #Byta produkt namn
-            elif specific_user_choice_input_3 == "2":
-                user_choice_change_description_input_3 = input("Change_Description: ")
-                # Här ska man lägga till byta namn
-            elif specific_user_choice_input_3 == "3":
-                user_choice_change_value_input_3 = int(input("New_Price: "))
-                # Här ska man byta pris
+        changed_product = change_product_dialog()
+        if changed_product != None:
+            print(f"ändrade {changed_product.name}")
     elif User_Choice_Input == 4:
         break
 
-print(inventory.as_product_list())
+print_products()
