@@ -79,11 +79,11 @@ class Inventory:
     # Remove desired product
     def remove(self, id:int ) -> Product:
         removed_product:Product = None
-        for i in range(len(self.products)) :
+        for i in range(len(self.products)):
             prod = self.products[i]
             if prod.id == id:
-                removed_product = self.products[id]
-                del self.products[id]
+                removed_product = self.products[i]
+                del self.products[i]
                 break
         self.save_data()
         return removed_product
@@ -103,10 +103,10 @@ def print_products():
 
 # User input for new product
 def new_product_dialog() -> Product:
-    name = input("Product_Name: ")
-    desc = input("Product_Description: ")
-    price = float(input("Product_Price: "))
-    quantity = int(input("Product_Quantity: "))
+    name = input(bcolors.DEFAULT + "Product_Name: ")
+    desc = input(bcolors.DEFAULT + "Product_Description: ")
+    price = float(input(bcolors.DEFAULT + "Product_Price: "))
+    quantity = int(input(bcolors.DEFAULT + "Product_Quantity: "))
     return Product(None, name, desc, price, quantity)
 
 # Remove product
@@ -115,9 +115,9 @@ def remove_product_dialog() -> Product:
     try:
         user_remove = int(input(bcolors.YELLOW + f"What product would you like to remove?\nEnter id: "))
         if user_remove in [product.id for product in inventory.products]:
-            removed_product = inventory.remove(user_remove - 1)
+            removed_product = inventory.remove(user_remove)
             print(f"Removed {removed_product.name}")
-            time.sleep(4)
+            time.sleep(1.5)
             return removed_product
         else:
             print(bcolors.RED + "Number is out of range")
@@ -129,6 +129,7 @@ def remove_product_dialog() -> Product:
     
 # User input to change product
 def change_product_dialog() -> Product:
+    os.system("cls")
     print_products()
     user_change_product= input(bcolors.YELLOW + "What product would you like to change? (q to quit)\nEnter ID: ")
     if user_change_product == "q":
@@ -141,17 +142,19 @@ def change_product_dialog() -> Product:
                 print(bcolors.CYAN + f"currently editing {product.name}\nleave space empty to skip")
                 product.name = input(bcolors.DEFAULT + f"Enter new name [{product.name}]:") or product.name
                 product.desc = input(bcolors.DEFAULT + f"Enter new description [{product.desc}]:") or product.desc
-                product.price = input(bcolors.DEFAULT + f"Enter new price [{product.price}]:") or product.price
-                product.quantity = input(bcolors.DEFAULT + f"Enter new quantity [{product.quantity}]:") or product.quantity
-                float(product.price)
-                float(product.quantity)
+                new_price = input(bcolors.DEFAULT + f"Enter new price [{product.price}]:") 
+                if new_price.strip(): # Only update if user provides input
+                    product.price = float(new_price)
+                new_quantity = input(bcolors.DEFAULT + f"Enter new quantity [{product.quantity}]:") 
+                if new_quantity.strip(): 
+                    product.quantity = int(new_quantity)
                 inventory.save_data()
                 return product
             
         print(bcolors.RED + f"No product found with ID {user_change_product_id}")
         time.sleep(2)
     except ValueError:
-        print(bcolors.RED + f"Product '{user_change_product}' does not exist, enter ID")
+        print(bcolors.RED + f"Wrong input")
         time.sleep(2)
     return None        
 
@@ -159,7 +162,7 @@ def change_product_dialog() -> Product:
 def inspect_products_dialog() -> Product:
     os.system("cls")
     print_products()
-    user_change_product= input(bcolors.YELLOW + "What product would you like to inspect? (q to quit)")
+    user_change_product= input(bcolors.YELLOW + "What product would you like to inspect?(Enter ID) (q to quit)")
     if user_change_product == "q":
         return None
 
@@ -184,8 +187,8 @@ def inspect_products_dialog() -> Product:
 # Show information about the csv file
 def show_system_information():
     os.system("cls")
-    seperator_top = "-" * 20
-    seperator_bottom = "-" * 20
+    seperator_top = bcolors.DEFAULT + "-" * 20
+    seperator_bottom = bcolors.DEFAULT + "-" * 20
     total_product_quantity = []
     total_product_price = []
     total_product_types = len(inventory.products)
@@ -199,8 +202,8 @@ def show_system_information():
     
     print(seperator_top)
     print(bcolors.YELLOW + f"Product_types: {total_product_types}\nTotal_product_quantity: {total_product_quantity}\nCombined_price: {total_product_price}kr")
-    print(bcolors.DEFAULT + seperator_bottom)
-    user_input = input("continue")
+    print(seperator_bottom)
+    user_input = input(bcolors.DEFAULT + "continue")
         
 
 # Formating to swedish (like currency and time)
@@ -220,31 +223,39 @@ while True:
     os.system('cls')
     print_products()
     try:
-        User_Choice_Input = int(input(bcolors.DEFAULT + "1. Add Product\n2. Remove Product\n3. Change Product\n4. Inspect Product\n5. Show inventory information\n6. Exit\n"))
-        if User_Choice_Input == 1:
-            try:
-                new_product = new_product_dialog()
-                inventory.add(new_product)
-            except ValueError:
-                print(bcolors.RED + "Empty input")
-                time.sleep(1.5)
+        user_Choice_Input = int(input(bcolors.DEFAULT + "1. Add Product\n2. Remove Product\n3. Change Product\n4. Inspect Product\n5. Show inventory information\n6. Exit\n"))
+        if user_Choice_Input in range(1, 6):
+            os.system("cls")
+            print_products()
+            if user_Choice_Input == 1:
+                try:
+                    os.system("cls")
+                    print(bcolors.GREEN + "CREATING NEW PRODUCT:")
+                    new_product = new_product_dialog()
+                    inventory.add(new_product)
+                except ValueError:
+                    print(bcolors.RED + "Empty input")
+                    time.sleep(1.5)
 
-        elif User_Choice_Input == 2:
-            removed_product = remove_product_dialog()
+            elif user_Choice_Input == 2:
+                removed_product = remove_product_dialog()
 
-        elif User_Choice_Input == 3:
-            changed_product = change_product_dialog()
-            if changed_product != None:
-                print(f"ändrade {changed_product.name}")
+            elif user_Choice_Input == 3:
+                changed_product = change_product_dialog()
+                if changed_product != None:
+                    print(f"ändrade {changed_product.name}")
 
-        elif User_Choice_Input == 4:
-            inspect_products_dialog()
+            elif user_Choice_Input == 4:
+                inspect_products_dialog()
 
-        elif User_Choice_Input == 5:
-            show_system_information()
-        
-        elif User_Choice_Input == 6:
-            break
+            elif user_Choice_Input == 5:
+                show_system_information()
+            
+            elif user_Choice_Input == 6:
+                exit()
+        if user_Choice_Input > 6:
+            print(bcolors.RED + "Enter numbers 1-6")
+            time.sleep(2)
     except ValueError:
         print(bcolors.RED + "Wrong input, enter numbers 1-6")
         time.sleep(1.5)
