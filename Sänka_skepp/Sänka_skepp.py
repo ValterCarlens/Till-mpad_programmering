@@ -1,42 +1,90 @@
-'''
-Sänka_skepp.py: Sänka skepp spel med hjälp av matriser
-
-__author__  = "Valter Carlens, Viktor Johansson Nygren"
-__version__ = "1.0.0"
-__email1__   = "Valter.Carlens@elev.ga.ntig.se"
-__email2__   = "Viktor.Johansson.Nygren@elev.ga.ntig.se"
-'''
 import os
 import random
+from tkinter import *
 
 def init():
-    os.system("cls")
-    print(f"Welcome to battleship game\nYou will be playing against a superpowerful AI\nYou will start by placing out your ships in the playingboard")
+    os.system("cls" if os.name == "nt" else "clear")
+    print("Welcome to Battleship!\nYou will be playing against a super-powerful AI.\n"
+          "You will start by placing your ships on the playing board.\n")
 
-def build_playingboard(dims):
-    return [["O" for count in range(dims)] for count in range(dims - 3)]
+
+def build_playingboard(rows, cols):
+    return [["O" for _ in range(cols)] for _ in range(rows)]
+
 
 def print_playingboard(board):
-    for i, b in enumerate(board):
-        # Print each row with "O"s separated by spaces
-        print(" | ".join(b))
-        # Print separator line except after the last row
+    for i, row in enumerate(board):
+        print(" | ".join(row))
         if i < len(board) - 1:
-            print("--+" + "---+" * (len(b) - 2) + "---")
-
-def build_ship(dims):
-    # Generate length of ship between number 1 - 5
-    ship_len = random.randint(1, 5)
-    ship_orientation = random.randint(0, 1)
-    # Ship is horizontal if ship_orientation = 0 and vertical if ship_orienation = 1
-
-    if ship_orientation == 0:
-        # Randomly select row and create list of selected row * length of ship
-        row_ship = [random.randint(0, dims - 1)] * ship_len
+            print("--+" + "---+" * (len(row) - 2) + "---")
 
 
-playingboard = build_playingboard(12)
-print_playingboard(playingboard)
+def build_ship(rows, cols):
+    ship_len = random.randint(1, 7)  # Ship length between 1 and 7
+    ship_orientation = random.choice(["horizontal", "vertical"])
+    coords = []
+
+    if ship_orientation == "horizontal":
+        row = random.randint(0, rows - 1)
+        col_start = random.randint(0, cols - ship_len)
+        coords = [(row, col) for col in range(col_start, col_start + ship_len)]
+    else:
+        col = random.randint(0, cols - 1)
+        row_start = random.randint(0, rows - ship_len)
+        coords = [(row, col) for row in range(row_start, row_start + ship_len)]
+
+    return coords
+
+
+def update_playingboard(guess, playingboard, ship, guesses):
+    if guess in guesses:
+        print("You already guessed that spot!")
+        return playingboard
+
+    guesses.append(guess)
+    if guess in ship:
+        print("You hit a ship!")
+        playingboard[guess[0]][guess[1]] = "X"
+        ship.remove(guess)
+    else:
+        print("Miss!")
+        playingboard[guess[0]][guess[1]] = "-"
+
+    return playingboard
+
+
+def user_guess(rows, cols):
+    while True:
+        try:
+            row = int(input(f"Enter row (1-{rows}): ")) - 1
+            col = int(input(f"Enter column (1-{cols}): ")) - 1
+
+            if 0 <= row < rows and 0 <= col < cols:
+                return row, col
+            else:
+                print(f"Please enter numbers between 1 and {rows} for rows, and 1 and {cols} for columns.")
+        except ValueError:
+            print("Invalid input. Please enter numbers only.")
+
 
 def main():
-    pass
+    rows, cols = 9, 12  # Dimensions of the board
+    board = build_playingboard(rows, cols)
+    ship = build_ship(rows, cols)
+    guesses = []
+
+    print("Here is the board:")
+    print_playingboard(board)
+
+    while len(ship) > 0:
+        print("\nTake your guess!")
+        guess = user_guess(rows, cols)
+        board = update_playingboard(guess, board, ship, guesses)
+        print_playingboard(board)
+
+    print("Congratulations! You've sunk all the ships!")
+
+
+if __name__ == "__main__":
+    init()
+    main()
