@@ -1,4 +1,11 @@
-# game.py
+'''
+main.py: denna fil hanterar användarens gissningar, kontrollerar om alla skepp blivit sänkta samt resetar brädet när spelet är klart 
+
+__author__  = "Valter Carlens, Viktor Johansson Nygren"
+__version__ = "1.0.0"
+__email__   = "valter.carlens@elev.ga.ntig.se, viktor.johannsonnygren@elev.ga.ntig.se"
+'''
+
 from board import Board
 from ship import Ship
 

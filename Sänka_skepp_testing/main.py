@@ -1,4 +1,11 @@
-# main.py
+'''
+main.py: main-programmet där spelet startas
+
+__author__  = "Valter Carlens, Viktor Johansson Nygren"
+__version__ = "1.0.0"
+__email__   = "valter.carlens@elev.ga.ntig.se, viktor.johannsonnygren@elev.ga.ntig.se"
+'''
+
 from game import BattleshipGame
 from battleship_ui import BattleshipUI
 

@@ -1,4 +1,11 @@
-# ui.py
+'''
+battleship_ui.py: denna fil hanterar grafiken
+
+__author__  = "Valter Carlens, Viktor Johansson Nygren"
+__version__ = "1.0.0"
+__email__   = "valter.carlens@elev.ga.ntig.se, viktor.johannsonnygren@elev.ga.ntig.se"
+'''
+
 import tkinter as tk
 from tkinter import messagebox
 
@@ -32,9 +39,9 @@ class BattleshipUI:
         for row in range(self.game.board.rows):
             button_row = [] # Skapar en tom lista för varje rad där knappar för den aktuella raden läggs till
             for col in range(self.game.board.cols):
-                button = self.create_button(row, col)
-                button.grid(row=row, column=col)
-                button_row.append(button)
+                button = self.create_button(row, col) # Skapar knapp för varje cell
+                button.grid(row=row, column=col) # Placera knappen
+                button_row.append(button) # Lägg till knappen i listan
             self.buttons.append(button_row)
 
     def create_button(self, row, col):
@@ -67,7 +74,7 @@ class BattleshipUI:
         result_window = tk.Toplevel(self.root)
         result_window.title(title)
         result_window.geometry("300x200")
-        result_window.grab_set()  # Disable main window interaction
+        result_window.grab_set()  # Inaktivera huvud-fönster interaktion
 
         guesses_made = self.get_guess_count()
         stats_message = f"{message}\n\nTotal Guesses: {guesses_made}"
