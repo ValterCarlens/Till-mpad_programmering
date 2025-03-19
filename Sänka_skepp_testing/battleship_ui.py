@@ -3,9 +3,10 @@ import tkinter as tk
 from tkinter import messagebox
 
 class BattleshipUI:
+    # Intitierar variabler
     def __init__(self, game):
         self.game = game
-        self.game.total_guesses = 0  # Initialize guess counter
+        self.game.total_guesses = 0  
         self.root = tk.Tk()
         self.root.title("Battleship Game")
         self.buttons = []
@@ -15,20 +16,21 @@ class BattleshipUI:
         welcome_frame = tk.Frame(self.root)
         welcome_frame.pack(expand=True)
 
-        tk.Label(welcome_frame, text="Welcome to Battleship!", font=("Arial", 16), pady=20).pack()
-        tk.Button(welcome_frame, text="Start Game", command=lambda: self.start_game(welcome_frame), width=15).pack(pady=10)
-        tk.Button(welcome_frame, text="Quit", command=self.root.quit, width=15).pack(pady=5)
+        # Initierar knappar
+        tk.Label(welcome_frame, text="Välkommen till sänka skepp!", font=("Arial", 16), pady=20).pack()
+        tk.Button(welcome_frame, text="Starta Spelet (Singelplayer)", command=lambda: self.start_game(welcome_frame), width=25).pack(pady=15)
+        tk.Button(welcome_frame, text="Avsluta", command=self.root.quit, width=15).pack(pady=5)
 
     def start_game(self, welcome_frame):
         welcome_frame.destroy()
-        if hasattr(self.game, 'board') and self.game.board:
+        if hasattr(self.game, 'board') and self.game.board: #Om self.game har attributet 'board'
             self.create_board()
         else:
             messagebox.showerror("Error", "Game board not initialized correctly.")
 
     def create_board(self):
         for row in range(self.game.board.rows):
-            button_row = []
+            button_row = [] # Skapar en tom lista för varje rad där knappar för den aktuella raden läggs till
             for col in range(self.game.board.cols):
                 button = self.create_button(row, col)
                 button.grid(row=row, column=col)
@@ -36,11 +38,10 @@ class BattleshipUI:
             self.buttons.append(button_row)
 
     def create_button(self, row, col):
-        return tk.Button(self.root, text="O", width=4, height=2,
-                          command=lambda r=row, c=col: self.handle_guess(r, c))
+        return tk.Button(self.root, text="O", width=4, height=2, command=lambda r=row, c=col: self.handle_guess(r, c))
 
     def handle_guess(self, row, col):
-        self.game.total_guesses += 1  # Increment guess counter
+        self.game.total_guesses += 1  
         result = self.game.make_guess(row, col)
 
         if result == "already_guessed":
