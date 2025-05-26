@@ -1,0 +1,48 @@
+[
+    {
+        "name": "Testing",
+        "description": "Bla",
+        "saving_goal": 100000.0,
+        "target_date": "2025-10-20",
+        "creation_date": "2025-05-21",
+        "income_streams": [
+            {
+                "source": "Full-time Job",
+                "amount": 0.0,
+                "frequency": "Monthly"
+            },
+            {
+                "source": "Part-time Job",
+                "amount": 0.0,
+                "frequency": "Monthly"
+            },
+            {
+                "source": "Investments",
+                "amount": 0.0,
+                "frequency": "Monthly"
+            }
+        ],
+        "expenses": [
+            {
+                "category": "Rent/Mortgage",
+                "amount": 0.0,
+                "frequency": "Monthly"
+            },
+            {
+                "category": "Utilities",
+                "amount": 0.0,
+                "frequency": "Monthly"
+            },
+            {
+                "category": "Groceries",
+                "amount": 0.0,
+                "frequency": "Monthly"
+            },
+            {
+                "category": "Transportation",
+                "amount": 0.0,
+                "frequency": "Monthly"
+            }
+        ]
+    }
+]

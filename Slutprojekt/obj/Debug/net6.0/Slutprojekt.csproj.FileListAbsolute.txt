@@ -1,0 +1,15 @@
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\bin\Debug\net6.0\Slutprojekt.exe
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\bin\Debug\net6.0\Slutprojekt.deps.json
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\bin\Debug\net6.0\Slutprojekt.runtimeconfig.json
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\bin\Debug\net6.0\Slutprojekt.dll
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\bin\Debug\net6.0\Slutprojekt.pdb
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\Slutprojekt.csproj.AssemblyReference.cache
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\Slutprojekt.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\Slutprojekt.AssemblyInfoInputs.cache
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\Slutprojekt.AssemblyInfo.cs
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\Slutprojekt.csproj.CoreCompileInputs.cache
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\Slutprojekt.dll
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\refint\Slutprojekt.dll
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\Slutprojekt.pdb
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\Slutprojekt.genruntimeconfig.cache
+C:\Users\valter.carlens\Documents\Tillämpad_programmering\Slutprojekt\obj\Debug\net6.0\ref\Slutprojekt.dll
