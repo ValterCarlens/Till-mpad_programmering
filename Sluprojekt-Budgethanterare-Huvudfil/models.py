@@ -1,5 +1,13 @@
 from datetime import datetime
 
+'''
+models.py: Defierar klassen Budget som representerar en budget med dess detaljer, inkomster och utgifter
+
+__author__  = "Valter Carlens"
+__version__ = "1.0.0"
+__email__   = "valter.carlens@elev.ga.ntig.se"
+'''
+
 # Budget klass
 class Budget:
     #Initiera variabler för budgeten
