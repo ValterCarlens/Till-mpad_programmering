@@ -6,6 +6,14 @@ from ui_budget import open_budget_window
 import re
 from datetime import datetime
 
+'''
+ui_main.py: Denna fil hanterar huvudfönstret och huvudmenyn för budgethanteraren
+
+__author__  = "Valter Carlens"
+__version__ = "1.0.0"
+__email__   = "valter.carlens@elev.ga.ntig.se"
+'''
+
 # Klass som hanterar huvudfönstret, huvudmenyn och budgetlistan
 class BudgetManagerApp:
     def __init__(self, root):
