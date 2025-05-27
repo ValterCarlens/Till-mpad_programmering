@@ -4,6 +4,14 @@ from models import Budget
 from tkinter import messagebox
 from datetime import datetime
 
+'''
+storage.py: Hanterar lagring och hämtning av budgetar via JSON-filen
+
+__author__  = "Valter Carlens"
+__version__ = "1.0.0"
+__email__   = "valter.carlens@elev.ga.ntig.se"
+'''
+
 # Laddar budgetar från JSON-fil och returnerar en lista med Budget-objekt
 # Om filen inte existerar eller är korrupt, returneras en tom lista
 def load_budgets(filename="budgets.json"):
