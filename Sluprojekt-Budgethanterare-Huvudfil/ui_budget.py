@@ -1,6 +1,14 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+'''
+ui_budget.py: Denna fil hanterar UI:n för att hantera budget
+
+__author__  = "Valter Carlens"
+__version__ = "1.0.0"
+__email__   = "valter.carlens@elev.ga.ntig.se"
+'''
+
 # Visar och redigerar budgetdetaljer
 # root: huvudfönster
 # budget: budget att visa/redigera
@@ -131,7 +139,7 @@ def open_budget_window(root, budget, budgets, save_budgets_callback, go_back_cal
     edit_income_btn = ttk.Button(income_frame, text="Redigera vald", command=edit_income)
     edit_income_btn.grid(row=2, column=0, columnspan=2, pady=5)
 
-    # --- Utgiftsflik ---
+    # Utgiftsflik
     expenses_frame = ttk.Frame(notebook)
     notebook.add(expenses_frame, text="Utgifter")
     # Formulär för att lägga till en ny utgift
